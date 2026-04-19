@@ -35,21 +35,6 @@ app.use(express.json());
 
 let inventory = [];
 
-app.post('/register', upload.single('photo'), (req, res) => {
-    const { inventory_name, description } = req.body;
-    if (!inventory_name) {
-        return res.status(400).json({ error: 'inventory_name is required' });
-    }
-    const item = {
-        id: randomUUID(),
-        name: inventory_name,
-        description: description || '',
-        photo: req.file ? req.file.filename : null,
-    };
-    inventory.push(item);
-    res.status(201).json({ message: 'Created', id: item.id });
-});
-
 app.get('/inventory', (req, res) => {
     res.json(inventory);
 });
