@@ -1,3 +1,7 @@
 export default function FavoritesBar({ count }) {
-    return <div>Favorites: {count}</div>;
+    return (
+        <span className="badge">
+            ❤️ {count}
+        </span>
+    );
 }

@@ -1,9 +1,11 @@
 export default function QuickView({ item }) {
     if (!item) return null;
     return (
-        <div>
-            <h2>{item.name}</h2>
-            <p>{item.description}</p>
+        <div className="modal-overlay">
+            <div className="modal-box">
+                <h3>{item.name}</h3>
+                <p>{item.description}</p>
+            </div>
         </div>
     );
 }

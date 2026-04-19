@@ -4,10 +4,32 @@ import InventoryGallery from "../components/gallery/InventoryGallery";
 
 export default function Gallery() {
     const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getAll().then(setItems);
+        getAll()
+            .then(setItems)
+            .finally(() => setLoading(false));
     }, []);
 
-    return <InventoryGallery items={items} />;
+    if (loading) {
+        return (
+            <div className="loading">
+                <div className="spinner" />
+                Loading...
+            </div>
+        );
+    }
+
+    return (
+        <>
+            <div className="page-header">
+                <div>
+                    <h1>Gallery</h1>
+                    <p>{items.length} items in collection</p>
+                </div>
+            </div>
+            <InventoryGallery items={items} />
+        </>
+    );
 }

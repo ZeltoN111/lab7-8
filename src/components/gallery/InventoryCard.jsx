@@ -1,14 +1,20 @@
 import { getPhotoUrl } from "../../services/inventoryApi";
 
-export default function Card({ item, onFav, isFav }) {
+export default function InventoryCard({ item, onFav, isFav }) {
     return (
-        <div style={{ border: "1px solid gray", padding: 10 }}>
-            <img src={getPhotoUrl(item.id)} width="100%" />
-            <h4>{item.name}</h4>
+        <div className="inv-card animate-in">
+            <img className="inv-card-img" src={getPhotoUrl(item.id)} alt={item.name} />
 
-            <button onClick={() => onFav(item)}>
+            <button className="inv-card-fav" onClick={() => onFav(item)} title={isFav ? "Remove from favorites" : "Add to favorites"}>
                 {isFav ? "❤️" : "🤍"}
             </button>
+
+            <div className="inv-card-body">
+                <div className="inv-card-name">{item.name}</div>
+                {item.description && (
+                    <div className="inv-card-desc">{item.description}</div>
+                )}
+            </div>
         </div>
     );
 }
