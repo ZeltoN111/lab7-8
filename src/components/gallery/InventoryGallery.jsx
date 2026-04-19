@@ -1,8 +1,11 @@
+import { useState } from "react";
 import InventoryCard from "./InventoryCard";
+import InventoryQuickView from "./InventoryQuickView";
 import useFavorites from "../../hooks/useFavorites";
 
 export default function InventoryGallery({ items }) {
     const { favorites, toggle } = useFavorites();
+    const [quickItem, setQuickItem] = useState(null);
 
     if (!items.length) {
         return (
@@ -16,15 +19,23 @@ export default function InventoryGallery({ items }) {
     }
 
     return (
-        <div className="gallery-grid">
-            {items.map((item) => (
-                <InventoryCard
-                    key={item.id}
-                    item={item}
-                    onFav={toggle}
-                    isFav={favorites.find((f) => f.id === item.id)}
-                />
-            ))}
-        </div>
+        <>
+            <div className="gallery-grid">
+                {items.map((item) => (
+                    <InventoryCard
+                        key={item.id}
+                        item={item}
+                        onFav={toggle}
+                        isFav={favorites.find((f) => f.id === item.id)}
+                        onQuickView={setQuickItem}
+                    />
+                ))}
+            </div>
+
+            <InventoryQuickView
+                item={quickItem}
+                onClose={() => setQuickItem(null)}
+            />
+        </>
     );
 }
